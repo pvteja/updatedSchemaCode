@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import io.apicurio.registry.rest.client.RegistryClient;
 import io.apicurio.registry.rest.v2.beans.ArtifactMetaData;
+import io.apicurio.registry.rest.v2.beans.ArtifactSearchResults;
 import io.apicurio.registry.rest.v2.beans.IfExists;
 import io.apicurio.registry.types.ArtifactType;
 
@@ -23,7 +24,7 @@ public class RegistryUtil {
      * @param artifactId
      * @param schema
      */
-    public static void createSchemaInServiceRegistry(RegistryClient service, String artifactId, String schema) {
+    public static ArtifactMetaData createSchemaInServiceRegistry(RegistryClient service, String artifactId, String schema) {
 
         LOGGER.info("---------------------------------------------------------");
         LOGGER.info("=====> Creating artifact in the registry for JSON Schema with ID: {}", artifactId);
@@ -33,6 +34,7 @@ public class RegistryUtil {
             assert metaData != null;
             LOGGER.info("=====> Successfully created JSON Schema artifact in Service Registry: {}", metaData);
             LOGGER.info("---------------------------------------------------------");
+            return metaData;
         } catch (Exception t) {
             throw t;
         }
@@ -57,6 +59,16 @@ public class RegistryUtil {
             throw t;
         }
     }
+    
+//    public static ArtifactSearchResults listArtifactsInGroup(String groupId) {
+//    	try {
+//            //service.
+//            LOGGER.info("=====> Successfully deleted JSON Schema artifact in Service Registry.");
+//            LOGGER.info("---------------------------------------------------------");
+//        } catch (Exception t) {
+//            throw t;
+//        }
+//    }
 
     /**
      * Delete the artifact from the registry.
@@ -75,4 +87,6 @@ public class RegistryUtil {
             throw t;
         }
     }
+    
+    
 }
